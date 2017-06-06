@@ -33,18 +33,15 @@ public class App {
 		Set<Oferta> ofertas = new HashSet<>();
 		ofertas.add(oferta);
 		
-		Produto prod = new Produto("MotoZ");
+		Produto prod = new Produto();
+		prod.setNome("Moto z");
 		prod.setOfertas(ofertas);
 		Set<Produto> ps = new HashSet<>();
 		ps.add(prod);		
 		
 		loja.setNome("MOTOROLA");
-		loja.setProdutos("Motoz");
-		Tarefa tarefa = new Tarefa();
-		tarefa.setDescricao("Teste Unita?rio");
-		tarefa.setDuracao(100);
-		tarefa.getFuncionarios().add(funcionario);
-		funcionario.getTarefas().add(tarefa);
+		loja.setProdutos(ps);
+		
 		try {
 			dao.salvar(funcionario);
 			System.out.println("Funcionario OK");

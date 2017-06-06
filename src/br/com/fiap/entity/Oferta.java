@@ -24,7 +24,7 @@ public class Oferta implements Serializable {
 	private Double preco;
 	
 	@Column(name = "ATIVO", nullable = false)
-	private Boolean nome;
+	private Boolean ativo;
 
 	public Long getId() {
 		return id;
@@ -42,12 +42,12 @@ public class Oferta implements Serializable {
 		this.preco = preco;
 	}
 
-	public Boolean getNome() {
-		return nome;
+	public Boolean getAtivo() {
+		return ativo;
 	}
 
-	public void setNome(Boolean nome) {
-		this.nome = nome;
+	public void setAtivo(Boolean ativo) {
+		this.ativo = ativo;
 	}
 	
 	
