@@ -15,10 +15,10 @@ public class Helper {
 		this.em = em;
 	}
 
-	public void salvar(Object loja) throws Exception { 
+	public void salvar(Object obj) throws Exception { 
 		try {
 			em.getTransaction().begin(); 
-			em.persist(loja); 
+			em.persist(obj); 
 			em.getTransaction().commit();
 		} 
 		catch (Exception e) {
