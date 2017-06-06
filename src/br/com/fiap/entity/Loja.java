@@ -13,13 +13,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.QueryHint;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "LOJA", catalog = "DBComparador", uniqueConstraints = {@UniqueConstraint(columnNames = "CODIGO_LOJA") })
-@NamedQuery(name = "Loja.findAll", query = "select l from Loja l", hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true") })
+@NamedQuery(name = "Loja.findAll", query = "select l from Loja l")
 public class Loja implements Serializable {
 
 	private static final long serialVersionUID = 8363694679454120193L;

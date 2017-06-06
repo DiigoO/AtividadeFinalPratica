@@ -72,7 +72,7 @@ public class App {
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Loja não existe!");
+			JOptionPane.showMessageDialog(null, "Loja nao existe!");
 		}
 	}
 	
@@ -115,11 +115,11 @@ public class App {
 				}
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "Produto não existe!");	
+				JOptionPane.showMessageDialog(null, "Produto nao existe!");	
 			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "Loja não existe!");
+			JOptionPane.showMessageDialog(null, "Loja nao existe!");
 		}
 	}
 
