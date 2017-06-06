@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import br.com.fiap.dao.Helper;
 import br.com.fiap.entity.Loja;
+import br.com.fiap.entity.Oferta;
 import br.com.fiap.entity.Produto;
 
 public class App {
@@ -65,7 +66,7 @@ public class App {
 	
 			try {
 				dao.salvar(loja);
-				System.out.println("Loja OK");
+				System.out.println("Produto OK");
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}
@@ -78,14 +79,47 @@ public class App {
 	private static void inserirOferta(EntityManager em) {
 		Helper dao = new Helper(em);
 		String nomeLoja = JOptionPane.showInputDialog("Digite o nome da Loja");
-		Loja loja = new Loja();
-		loja.setNome(nomeLoja);
-
-		try {
-			dao.salvar(loja);
-			System.out.println("Loja OK");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		Loja loja = dao.buscarLoja(nomeLoja);
+		if(loja != null) {
+			String nomeProduto = JOptionPane.showInputDialog("Digite o nome do Produto");
+			Produto produto = dao.buscarProduto(nomeProduto);
+			
+			if(produto != null) {
+				Double valorOfert = null;
+				try {
+					valorOfert = Double.valueOf(JOptionPane.showInputDialog("Digite o valor da Produto"));
+				}
+				catch(NumberFormatException e) {
+					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Valor invalido!");
+					return;
+					
+				}
+				Oferta oferta = new Oferta();
+				oferta.setAtivo(true);
+				oferta.setPreco(valorOfert);
+				
+				if(produto.getOfertas() != null)
+					produto.getOfertas().add(oferta);
+				else {
+					Set<Oferta> ofertas = new HashSet<>();
+					ofertas.add(oferta);
+					produto.setOfertas(ofertas);
+				}
+		
+				try {
+					dao.salvar(produto);
+					System.out.println("Oferta OK");
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Produto não existe!");	
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Loja não existe!");
 		}
 	}
 
