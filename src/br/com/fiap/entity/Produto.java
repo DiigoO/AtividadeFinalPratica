@@ -28,7 +28,7 @@ public class Produto implements Serializable {
 	@Column(name = "NOME_PRODUTO", unique = true, nullable = false, length = 45)
 	private String nome;
 		
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "produto")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Oferta> ofertas = new HashSet<Oferta>();
 
 	public Long getId() {
