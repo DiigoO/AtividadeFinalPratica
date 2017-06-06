@@ -1,7 +1,6 @@
 package br.com.fiap;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -11,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import br.com.fiap.dao.Helper;
 import br.com.fiap.entity.Loja;
-import br.com.fiap.entity.Oferta;
 import br.com.fiap.entity.Produto;
 
 public class App {
@@ -19,54 +17,76 @@ public class App {
 	public static void main(String[] args) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("DBComparador");
 		EntityManager em = emf.createEntityManager();
-		incluirLoja(em);
-//		listarLoja(em);
-//		buscarLoja(em, "2000");
+		
+		Integer option = Integer.valueOf(JOptionPane.showInputDialog("Digite o que deseja inserir\n1 - LOJA\n2 - PRODUTO\n3 - OFERTA"));
+		switch (option) {
+		case(1):
+			inserirLoja(em);
+			break;
+		case(2):
+			inserirProduto(em);
+			break;
+		case(3):
+			inserirOferta(em);
+			break;
+		}
 	}
 	
-	private static void incluirLoja(EntityManager em){
+	private static void inserirLoja(EntityManager em) {
 		Helper dao = new Helper(em);
+		String nomeLoja = JOptionPane.showInputDialog("Digite o nome da Loja");
 		Loja loja = new Loja();
-		
-		Oferta oferta = new Oferta();
-		Set<Oferta> ofertas = new HashSet<>();		
-		Produto prod = new Produto();
-		Set<Produto> ps = new HashSet<>();
-		
-		String l = JOptionPane.showInputDialog("Digite uma loja: ");
-		loja.setNome(l);
-		String p = JOptionPane.showInputDialog("Digite um produto: ");
-		String pr = JOptionPane.showInputDialog("Digite seu preço: ");
-		String at = JOptionPane.showInputDialog("Digite 1 se ativa ou 0 se inativa:");
-		oferta.setPreco(Double.valueOf(pr));
-		oferta.setAtivo(Boolean.valueOf(at));
-		ofertas.add(oferta);
-		
-		prod.setOfertas(ofertas);
-		ps.add(prod);	
-		
-//		try {
-//			dao.salvar(funcionario);
-//			System.out.println("Funcionario OK");
-//		} 
-//		catch (Exception e) {
-//			System.out.println(e.getMessage());
-//		}
+		loja.setNome(nomeLoja);
+
+		try {
+			dao.salvar(loja);
+			System.out.println("Loja OK");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
-//	private static void listarFuncionarios(EntityManager em){
-//		Helper dao = new Helper(em);
-//		List<Funcionario> funcionarios = dao.listarTodos();
-//		for (Funcionario funcionario : funcionarios) {
-//			System.out.println(funcionario.getMatricula() + ": " +
-//					funcionario.getAtivo());
-//		}
-//		em.close();
-//	}
-//	private static void buscarFuncionario(EntityManager em, String
-//			matricula){
-//		Helper dao = new Helper(em);
-//		Funcionario f = dao.buscarFuncionario(matricula);
-//		System.out.println(f.getMatricula() + ": " + f.getAtivo());
-//	}
+	
+	private static void inserirProduto(EntityManager em) {
+		Helper dao = new Helper(em);
+		String nomeLoja = JOptionPane.showInputDialog("Digite o nome da Loja");
+		Loja loja = dao.buscarLoja(nomeLoja);
+		if(loja != null) {
+			String nomeProduto = JOptionPane.showInputDialog("Digite o nome do Produto");
+			Produto produto = new Produto();
+			produto.setNome(nomeProduto);
+			
+			if(loja.getProdutos() != null)
+				loja.getProdutos().add(produto);
+			else {
+				Set<Produto> produtos = new HashSet<>();
+				produtos.add(produto);
+				loja.setProdutos(produtos);
+			}
+	
+			try {
+				dao.salvar(loja);
+				System.out.println("Loja OK");
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "Loja não existe!");
+		}
+	}
+	
+	private static void inserirOferta(EntityManager em) {
+		Helper dao = new Helper(em);
+		String nomeLoja = JOptionPane.showInputDialog("Digite o nome da Loja");
+		Loja loja = new Loja();
+		loja.setNome(nomeLoja);
+
+		try {
+			dao.salvar(loja);
+			System.out.println("Loja OK");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 }
