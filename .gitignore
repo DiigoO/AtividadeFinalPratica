@@ -1,2 +1,5 @@
-/.apt_generated/
-build/.*
+/.gradle/
+/.idea/
+*.iml
+/bin/
+/build/
