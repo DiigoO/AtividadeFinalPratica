@@ -32,7 +32,33 @@ public class Loja implements Serializable {
 	@Column(name = "NOME_LOJA", unique = true, nullable = false, length = 45)
 	private String nome;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "loja")
-	private Set<Produto> usuarios = new HashSet<Produto>();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Set<Produto> produtos = new HashSet<Produto>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Set<Produto> getProdutos() {
+		return produtos;
+	}
+
+	public void setProdutos(Set<Produto> produtos) {
+		this.produtos = produtos;
+	}
+	
+	
 
 }
