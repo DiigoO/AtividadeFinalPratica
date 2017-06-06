@@ -33,9 +33,9 @@ public class Helper {
 		
 	}
 
-	public Loja buscarLoja(String lojaId){
+	public Loja buscarLoja(String name){
 		Query query = em.createQuery("select * from Loja where lojaId = :lojaId");
-		query.setParameter("lojaId", lojaId); 
+		query.setParameter("lojaId", name); 
 		Loja l = (Loja) query.getSingleResult(); 
 		return l;		
 	}
