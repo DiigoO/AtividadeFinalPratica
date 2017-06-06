@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,17 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 @Entity
 @Table(name = "PRODUTO", catalog = "DBComparador")
-
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "loja")
 public class Produto implements Serializable {
-
-	private static final long serialVersionUID = 8363694679454120193L;
+	
+	private static final long serialVersionUID = -2441125313249047467L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,5 +30,31 @@ public class Produto implements Serializable {
 		
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "produto")
 	private Set<Oferta> ofertas = new HashSet<Oferta>();
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public Set<Oferta> getOfertas() {
+		return ofertas;
+	}
+
+	public void setOfertas(Set<Oferta> ofertas) {
+		this.ofertas = ofertas;
+	}
+	
+	
 
 }

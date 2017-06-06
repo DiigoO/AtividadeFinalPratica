@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,14 +17,9 @@ import javax.persistence.QueryHint;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 @Entity
 @Table(name = "LOJA", catalog = "DBComparador", uniqueConstraints = {@UniqueConstraint(columnNames = "CODIGO_LOJA") })
 @NamedQuery(name = "Loja.findAll", query = "select l from Loja l", hints = {@QueryHint(name = "org.hibernate.cacheable", value = "true") })
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_ONLY, region = "loja")
 public class Loja implements Serializable {
 
 	private static final long serialVersionUID = 8363694679454120193L;
