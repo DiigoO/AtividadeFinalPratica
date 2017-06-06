@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import br.com.fiap.entity.Loja;
+import br.com.fiap.entity.Produto;
 
 public class Helper {
 	private EntityManager em;
@@ -34,10 +35,17 @@ public class Helper {
 	}
 
 	public Loja buscarLoja(String name){
-		Query query = em.createQuery("select * from Loja where lojaId = :lojaId");
-		query.setParameter("lojaId", name); 
+		Query query = em.createQuery("select * from Loja where name = :name");
+		query.setParameter("name", name); 
 		Loja l = (Loja) query.getSingleResult(); 
 		return l;		
+	}
+	
+	public Produto buscarProduto(String product){
+		Query query = em.createQuery("select * from Produto where product = :product");
+		query.setParameter("product", product); 
+		Produto p = (Produto) query.getSingleResult(); 
+		return p;		
 	}
 	
 	public Loja buscarLoja(int id){

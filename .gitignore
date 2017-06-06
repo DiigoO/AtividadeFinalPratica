@@ -1,2 +1,2 @@
 /.apt_generated/
-build/
+build/.*
